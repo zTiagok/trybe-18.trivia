@@ -1,10 +1,29 @@
 import React, { Component } from 'react';
+import propTypes from 'prop-types';
+
+import { getToken } from '../API/getInfo';
 
 export default class Login extends Component {
   state = {
     userValue: '',
     emailValue: '',
   }
+
+  handleButton = async ({ target }) => {
+    const { history } = this.props;
+
+    if (target.id === 'btn-play') {
+      const data = await getToken();
+
+      localStorage.setItem('token', [data.token]);
+
+      history.push('/play');
+    }
+
+    if (target.id === 'btn-settings') {
+      history.push('/config');
+    }
+  };
 
   handleInput = ({ target }) => {
     if (target.type === 'text') {
@@ -59,9 +78,20 @@ export default class Login extends Component {
           <button
             type="button"
             data-testid="btn-play"
+            onClick={ this.handleButton }
             disabled={ btnDisabled }
+            id="btn-play"
           >
             Play
+          </button>
+
+          <button
+            type="button"
+            data-testid="btn-settings"
+            onClick={ this.handleButton }
+            id="btn-settings"
+          >
+            Settings
           </button>
 
         </form>
@@ -69,3 +99,11 @@ export default class Login extends Component {
     );
   }
 }
+
+Login.propTypes = {
+  history: propTypes.shape({ push: propTypes.func }),
+};
+
+Login.defaultProps = {
+  history: propTypes.shape({}),
+};
