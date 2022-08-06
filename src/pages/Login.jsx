@@ -21,10 +21,10 @@ class Login extends Component {
 
       localStorage.setItem('token', [data.token]);
 
-      history.push('/play');
-
       saveUsername(userValue);
       saveEmail(emailValue);
+
+      history.push('/play');
     }
 
     if (target.id === 'btn-settings') {

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import propTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { MD5 } from 'crypto-js';
+// import { MD5 } from 'crypto-js';
 
 import { saveGravatar as dispatchSaveGravatar } from '../redux/actions/actions';
 
@@ -48,11 +48,6 @@ class Header extends Component {
         >
           0
         </p>
-
-        <button type="button" onClick={ this.generateGravatarIcon }>
-          oi
-
-        </button>
       </header>
     );
   }
@@ -60,9 +55,9 @@ class Header extends Component {
 
 Header.propTypes = {
   username: propTypes.string.isRequired,
-  email: propTypes.string.isRequired,
-  gravatarEmail: propTypes.string.isRequired,
-  saveGravatar: propTypes.func.isRequired,
+  // email: propTypes.string.isRequired,
+  // gravatarEmail: propTypes.string.isRequired,
+  // saveGravatar: propTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
