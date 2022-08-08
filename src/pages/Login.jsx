@@ -3,8 +3,7 @@ import propTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { getToken } from '../API/getInfo';
-import { saveUsername as dispatchSaveUsername,
-  saveEmail as dispatchSaveEmail } from '../redux/actions/actions';
+import { saveUser as dispatchSaveUser } from '../redux/actions/actions';
 
 class Login extends Component {
   state = {
@@ -13,7 +12,7 @@ class Login extends Component {
   }
 
   handleButton = async ({ target }) => {
-    const { history, saveUsername, saveEmail } = this.props;
+    const { history, saveUser } = this.props;
     const { userValue, emailValue } = this.state;
 
     if (target.id === 'btn-play') {
@@ -21,8 +20,7 @@ class Login extends Component {
 
       localStorage.setItem('token', [data.token]);
 
-      saveUsername(userValue);
-      saveEmail(emailValue);
+      saveUser(userValue, emailValue);
 
       history.push('/play');
     }
@@ -109,8 +107,7 @@ class Login extends Component {
 
 Login.propTypes = {
   history: propTypes.shape({ push: propTypes.func }),
-  saveUsername: propTypes.func.isRequired,
-  saveEmail: propTypes.func.isRequired,
+  saveUser: propTypes.func.isRequired,
 };
 
 Login.defaultProps = {
@@ -120,8 +117,7 @@ Login.defaultProps = {
 const mapStateToProps = () => ({});
 
 const mapDispatchToProps = (dispatch) => ({
-  saveUsername: (user) => dispatch(dispatchSaveUsername(user)),
-  saveEmail: (email) => dispatch(dispatchSaveEmail(email)),
+  saveUser: (user, email) => dispatch(dispatchSaveUser(user, email)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login);

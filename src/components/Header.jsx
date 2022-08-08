@@ -3,8 +3,6 @@ import propTypes from 'prop-types';
 import { connect } from 'react-redux';
 // import { MD5 } from 'crypto-js';
 
-import { saveGravatar as dispatchSaveGravatar } from '../redux/actions/actions';
-
 class Header extends Component {
   state = {
     hashCode: '',
@@ -62,12 +60,10 @@ Header.propTypes = {
 
 const mapStateToProps = (state) => ({
   username: state.player.name,
-  email: state.player.email,
   gravatarEmail: state.player.gravatarEmail,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  saveGravatar: (url) => dispatch(dispatchSaveGravatar(url)),
+const mapDispatchToProps = () => ({
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Header);
