@@ -4,6 +4,8 @@ import propTypes from 'prop-types';
 import Header from '../components/Header';
 import { getTrivia } from '../API/getInfo';
 
+import { saveScore as dispatchSaveScore } from '../redux/actions/actions';
+
 class Game extends Component {
   state = {
     APIcode: '',
@@ -64,6 +66,8 @@ class Game extends Component {
   }
 
   correctAnswer = ({ target }) => {
+    const { saveScore } = this.props;
+
     this.setState({ nextCategory: true });
     target.classList.add('correct-answer-ok');
 
@@ -71,6 +75,9 @@ class Game extends Component {
     incorrectAnswers.forEach((answer) => {
       answer.classList.add('incorrect-answer-ok');
     });
+
+    // AUMENTAR A QUANTIDADE DE SCORE DEPOIS______________________________________________________________________
+    saveScore(1);
   }
 
   incorrectAnswers = () => {
@@ -98,6 +105,7 @@ class Game extends Component {
       <button
         type="button"
         onClick={ this.nextCategoryEvent }
+        data-testid="btn-next"
       >
         Próxima Questão
       </button>
@@ -109,7 +117,7 @@ class Game extends Component {
           className="trivia-category"
           data-testid="question-category"
         >
-          {results.category}
+          { results.category }
         </h3>
         <h4
           className="trivia-text"
@@ -140,10 +148,19 @@ class Game extends Component {
 
 Game.propTypes = {
   history: propTypes.shape({ push: propTypes.func }),
+  saveScore: propTypes.func.isRequired,
 };
 
 Game.defaultProps = {
   history: propTypes.shape({}),
 };
 
-export default connect()(Game);
+const mapStateToProps = () => ({
+
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  saveScore: (score) => dispatch(dispatchSaveScore(score)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Game);

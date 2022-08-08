@@ -23,7 +23,7 @@ class Header extends Component {
   }
 
   render() {
-    const { username } = this.props;
+    const { username, score } = this.props;
     const { hashCode } = this.state;
 
     return (
@@ -44,7 +44,9 @@ class Header extends Component {
           id="header-score"
           data-testid="header-score"
         >
-          0
+          Pontuação:
+          { ' ' }
+          { score }
         </p>
       </header>
     );
@@ -53,14 +55,13 @@ class Header extends Component {
 
 Header.propTypes = {
   username: propTypes.string.isRequired,
-  // email: propTypes.string.isRequired,
-  // gravatarEmail: propTypes.string.isRequired,
-  // saveGravatar: propTypes.func.isRequired,
+  score: propTypes.number.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   username: state.player.name,
   gravatarEmail: state.player.gravatarEmail,
+  score: state.player.score,
 });
 
 const mapDispatchToProps = () => ({
