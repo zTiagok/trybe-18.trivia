@@ -114,7 +114,7 @@ class Game extends Component {
     );
 
     const trivia = APIresults.map((results, index) => (
-      <div className="trivia-game" key={ results.category + index }>
+      <div id="trivia-game" key={ results.category + index }>
         <h3
           className="trivia-category"
           data-testid="question-category"

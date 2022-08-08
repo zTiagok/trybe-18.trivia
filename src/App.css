@@ -1,71 +1,131 @@
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200&display=swap') ;
 
+:root {
 
-body {
+  --green: rgb(6, 240, 15);
+
+  --background: rgb(22, 22, 31);
+
+  --foreground: rgb(66, 66, 94);
+
+  --details: rgb(35, 29, 52);
+}
+
+* {
   box-sizing: border-box;
+  font-family: Oswald , sans-serif;
   margin: 0;
   padding: 0;
 }
 
-.App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 15vmin;
-  pointer-events: none;
-}
-
-.red-border {
-  border: 1px solid red;
-}
-
-.green-border {
-  border: 1px solid green;
-}
-
-@media ( prefers-reduced-motion : no-preference ) {
-
-  .App-logo {
-    animation: shake infinite 0.82s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
-  }
-}
-
-.App-header {
-  align-items: center;
-  background-color: #282c34;
+body {
+  background-color: var(--background);
   color: white;
+}
+
+/* APP _____________________ */
+.App {
+  background-color: var(--foreground);
+  border-radius: 10px;
+  box-shadow: 0 0 10px black , 0 0 10px black;
   display: flex;
   flex-direction: column;
-  font-size: calc(10px + 2vmin);
-  justify-content: center;
-  min-height: 100vh;
+  height: 600px;
+  margin: auto;
+  margin-top: 2%;
+  max-height: 500px;
+  max-width: 700px;
 }
 
-.App-link {
-  color: #61dafb;
+/* HEADER____________________ */
+header {
+  align-items: center;
+  background-color: var(--details);
+  border-bottom: 2px solid white;
+  border-radius: 10px 10px 5px 5px;
+  box-shadow: 0 4px 10px var(--background);
+  display: flex;
+  flex-grow: 0;
+  justify-content: space-around;
+  padding-bottom: 20px;
+  padding-top: 20px;
+  text-shadow: 0 0 5px white;
+  width: 100%;
 }
 
-@keyframes shake {
+#header-user {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: left;
+  width: 300px;
+}
 
-  10%, 90% {
-    transform: translate3d(-1px, 0, 0);
-  }
+#header-icon {
+  border-radius: 50px;
+  width: 25px;
+}
 
-  20%, 80% {
-    transform: translate3d(2px, 0, 0);
-  }
+#header-username {
+  margin-left: 5px;
+}
 
-  30%, 50%, 70% {
-    transform: translate3d(-4px, 0, 0);
-  }
+/* GAME______________________ */
+#game-page {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  margin: auto;
+  margin-top: 45px;
+}
 
-  40%, 60% {
-    transform: translate3d(4px, 0, 0);
-  }
+#trivia-game {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  height: 350px;
+  justify-content: space-evenly;
+  max-width: 600px;
+  width: 600px;
+}
+
+.trivia-category {
+  font-size: 40px;
+}
+
+.trivia-text {
+
+}
+
+.trivia-answers {
+  display: flex;
+  flex-direction: column;
+}
+
+.trivia-answers button {
+  border-radius: 5px;
+  margin: 5px 0;
+  padding: 10px;
+  width: 400px;
+}
+
+.trivia-answers button:hover {
+  cursor: pointer;
+  background-color: var(--background);
+  color: white;
+  text-shadow: 0 0 5px white , 0 0 5px white;
+}
+
+.correct {
+  border: 3px solid var(--background);
+}
+
+.incorrect {
+  border: 3px solid var(--background);
 }
 
 .correct-answer-ok {
-  border: 3px solid rgb(6, 240, 15);
+  border: 3px solid var(--green);
 }
 
 .incorrect-answer-ok {
@@ -73,7 +133,7 @@ body {
 }
 
 .correct-answer-nok {
-  border: 3px solid rgb(6, 240, 15);
+  border: 3px solid var(--green);
 }
 
 .incorrect-answer-nok {

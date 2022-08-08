@@ -28,18 +28,20 @@ class Header extends Component {
 
     return (
       <header>
-        <p
-          id="header-username"
-          data-testid="header-player-name"
-        >
-          { username || 'Usuário'}
-        </p>
-        <img
-          src={ hashCode }
-          alt="Icon"
-          id="header-icon"
-          data-testid="header-profile-picture"
-        />
+        <div id="header-user">
+          <img
+            src={ hashCode }
+            alt="Icon"
+            id="header-icon"
+            data-testid="header-profile-picture"
+          />
+          <p
+            id="header-username"
+            data-testid="header-player-name"
+          >
+            { username || 'Usuário'}
+          </p>
+        </div>
         <p
           id="header-score"
           data-testid="header-score"
