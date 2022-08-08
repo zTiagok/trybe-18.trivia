@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import propTypes from 'prop-types';
-import Header from '../components/Header';
-import { getTrivia } from '../API/getInfo';
 
+import Header from '../components/Header';
+import Feedback from '../components/Feedback';
+import { getTrivia } from '../API/getInfo';
 import { saveScore as dispatchSaveScore } from '../redux/actions/actions';
 
 class Game extends Component {
@@ -96,6 +97,7 @@ class Game extends Component {
     const { APIcode, APIresults, APIanswers, currentCategory, nextCategory } = this.state;
     const { history } = this.props;
     const errorNumber = 3;
+    const showFeedback = 5;
 
     if (APIcode === errorNumber) {
       history.push('/');
@@ -140,6 +142,9 @@ class Game extends Component {
             : 'Carregando...'}
           { nextCategory
             && nextCategoryButton}
+
+          {currentCategory >= showFeedback
+            && <Feedback />}
         </div>
       </>
     );
