@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { timer } from '../redux/actions/actions';
 
 const initialState = {
-  second: 30,
+  second: 5,
 };
 
 class Timer extends React.Component {
@@ -15,11 +15,12 @@ class Timer extends React.Component {
   }
 
   componentDidMount() {
+    // variavel global
     this.decrementador = this.decrementador();
   }
 
   componentWillUnmount() {
-    this.decrementador.clearTimeout();
+    clearInterval(this.decrementador);
   }
 
   decrementador = () => {
@@ -35,8 +36,8 @@ class Timer extends React.Component {
   render() {
     const { changeTime } = this.props;
     const { second } = this.state;
-    if (second === 0) {
-      this.setState(() => initialState);
+    if (second <= 0) {
+      clearInterval(this.decrementador);
     }
     changeTime(second);
     return (

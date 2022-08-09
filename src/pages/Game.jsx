@@ -1,8 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import propTypes from 'prop-types';
+
 import Header from '../components/Header';
+import Feedback from '../components/Feedback';
+import Timer from '../components/Timer';
 import { getTrivia } from '../API/getInfo';
+import { saveScore as dispatchSaveScore } from '../redux/actions/actions';
 
 class Game extends Component {
   state = {
@@ -10,6 +14,7 @@ class Game extends Component {
     APIresults: [],
     APIanswers: [],
     currentCategory: 0,
+    nextCategory: false,
   };
 
   componentDidMount() {
@@ -29,7 +34,8 @@ class Game extends Component {
           type="button"
           key={ index }
           data-testid="wrong-answer"
-          className="wrong-answers"
+          onClick={ this.incorrectAnswers }
+          className="incorrect"
         >
           {answer}
         </button>
@@ -40,7 +46,7 @@ class Game extends Component {
           type="button"
           data-testid="correct-answer"
           onClick={ this.correctAnswer }
-          className="correct-answer"
+          className="correct"
         >
           { result.correct_answer }
         </button>
@@ -56,74 +62,73 @@ class Game extends Component {
       APIanswers: array });
   }
 
-  correctAnswer = () => {
-    this.setState((prevState) => ({ currentCategory: prevState.currentCategory + 1 }));
+  nextCategoryEvent = () => {
+    this.setState((prevState) => ({ currentCategory: prevState.currentCategory + 1,
+      nextCategory: false }));
   }
 
-  wrongAnswer = () => {
+  correctAnswer = ({ target }) => {
+    const { saveScore } = this.props;
 
-  };
+    this.setState({ nextCategory: true });
+    target.classList.add('correct-answer-ok');
+
+    const incorrectAnswers = document.querySelectorAll('.incorrect');
+    incorrectAnswers.forEach((answer) => {
+      answer.classList.add('incorrect-answer-ok');
+    });
+
+    // AUMENTAR A QUANTIDADE DE SCORE DEPOIS______________________________________________________________________
+    saveScore(1);
+  }
+
+  incorrectAnswers = () => {
+    this.setState({ nextCategory: true });
+
+    const correctAnswer = document.querySelector('.correct');
+    correctAnswer.classList.add('correct-answer-ok');
+
+    const incorrectAnswers = document.querySelectorAll('.incorrect');
+    incorrectAnswers.forEach((answer) => {
+      answer.classList.add('incorrect-answer-ok');
+    });
+  }
 
   render() {
-    const { APIcode, APIresults, APIanswers, currentCategory } = this.state;
+    const { APIcode, APIresults, APIanswers, currentCategory, nextCategory } = this.state;
     const { history } = this.props;
     const errorNumber = 3;
+    const showFeedback = 5;
 
     if (APIcode === errorNumber) {
       history.push('/');
     }
 
-    // const trivia = APIresults.map((results, index) => (
-    //   <div className="trivia-game" key={ results.category + index }>
-    //     <h3
-    //       className="trivia-category"
-    //       data-testid="question-category"
-    //     >
-    //       {results.category}
-    //     </h3>
-    //     <h4
-    //       className="trivia-text"
-    //       data-testid="question-text"
-    //     >
-    //       {results.question}
-    //     </h4>
-    //     <div className="trivia-answers" data-testid="answer-options">
-
-    //       <button
-    //         type="button"
-    //         data-testid="correct-answer"
-    //         onClick={ this.correctAnswer }
-    //       >
-    //         {results.correct_answer}
-    //       </button>
-
-    //       {results.incorrect_answers.map((answers, index2) => (
-    //         <button
-    //           type="button"
-    //           key={ index2 }
-    //           data-testid="wrong-answer"
-    //         >
-    //           {answers}
-    //         </button>
-    //       ))}
-
-    //     </div>
-    //   </div>
-    // ));
+    const nextCategoryButton = (
+      <button
+        type="button"
+        onClick={ this.nextCategoryEvent }
+        data-testid="btn-next"
+        className="trivia-next-question"
+      >
+        Próxima Questão
+      </button>
+    );
 
     const trivia = APIresults.map((results, index) => (
-      <div className="trivia-game" key={ results.category + index }>
+      <div id="trivia-game" key={ results.category + index }>
         <h3
           className="trivia-category"
           data-testid="question-category"
         >
-          {results.category}
+          { results.category }
         </h3>
+        <div className="trivia-line" />
         <h4
           className="trivia-text"
           data-testid="question-text"
         >
-          {results.question}
+          { results.question }
         </h4>
         <div className="trivia-answers" data-testid="answer-options">
           {APIanswers[index]}
@@ -134,10 +139,16 @@ class Game extends Component {
     return (
       <>
         <Header />
+        <Timer />
         <div id="game-page">
           {APIresults
             ? trivia[currentCategory]
             : 'Carregando...'}
+          { nextCategory
+            && nextCategoryButton}
+
+          {currentCategory >= showFeedback
+            && <Feedback />}
         </div>
       </>
     );
@@ -146,10 +157,19 @@ class Game extends Component {
 
 Game.propTypes = {
   history: propTypes.shape({ push: propTypes.func }),
+  saveScore: propTypes.func.isRequired,
 };
 
 Game.defaultProps = {
   history: propTypes.shape({}),
 };
 
-export default connect()(Game);
+const mapStateToProps = () => ({
+
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  saveScore: (score) => dispatch(dispatchSaveScore(score)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Game);

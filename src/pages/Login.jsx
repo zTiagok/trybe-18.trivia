@@ -53,32 +53,35 @@ class Login extends Component {
     return (
       <div id="login-page">
         <form id="login-form">
+          <babel htmlFor="login-name" id="user-label">
+            Usuário
+          </babel>
+          <input
+            type="text"
+            value={ userValue }
+            onChange={ this.handleInput }
+            name="login-name"
+            id="login-name"
+            data-testid="input-player-name"
+            autoComplete="off"
+            placeholder="Seu Nome"
+            required
+          />
 
-          <label htmlFor="login-name">
-            Usuário:
-            <input
-              type="text"
-              value={ userValue }
-              onChange={ this.handleInput }
-              name="login-name"
-              id="login-name"
-              data-testid="input-player-name"
-              required
-            />
-          </label>
-
-          <label htmlFor="login-email">
-            Email:
-            <input
-              type="email"
-              value={ emailValue }
-              onChange={ this.handleInput }
-              name="login-email"
-              id="login-email"
-              data-testid="input-gravatar-email"
-              required
-            />
-          </label>
+          <babel htmlFor="login-email" id="email-label">
+            Email
+          </babel>
+          <input
+            type="email"
+            value={ emailValue }
+            onChange={ this.handleInput }
+            name="login-email"
+            id="login-email"
+            data-testid="input-gravatar-email"
+            autoComplete="off"
+            placeholder="seu@email.com"
+            required
+          />
 
           <button
             type="button"

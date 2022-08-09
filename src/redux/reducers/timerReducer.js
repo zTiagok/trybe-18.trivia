@@ -1,7 +1,7 @@
 import { SAVE_TIME } from '../actions/actions';
 
 const INITIAL_STATE = {
-  time: 30,
+  time: 0,
 };
 
 const timer = (state = INITIAL_STATE, action) => {
