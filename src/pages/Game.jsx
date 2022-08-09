@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import propTypes from 'prop-types';
 
+import Timer from '../components/Timer';
 import Header from '../components/Header';
 import Feedback from '../components/Feedback';
 import { getTrivia } from '../API/getInfo';
@@ -18,6 +19,10 @@ class Game extends Component {
 
   componentDidMount() {
     this.renderTrivia();
+  }
+
+  componentDidUpdate() {
+    this.button = document.querySelector('.correct');
   }
 
   renderTrivia = async () => {
@@ -103,6 +108,8 @@ class Game extends Component {
       history.push('/');
     }
 
+    // const result = timer.contains('00:0');
+
     const nextCategoryButton = (
       <button
         type="button"
@@ -116,6 +123,7 @@ class Game extends Component {
 
     const trivia = APIresults.map((results, index) => (
       <div id="trivia-game" key={ results.category + index }>
+        <Timer />
         <h3
           className="trivia-category"
           data-testid="question-category"
@@ -163,7 +171,6 @@ Game.defaultProps = {
 };
 
 const mapStateToProps = () => ({
-
 });
 
 const mapDispatchToProps = (dispatch) => ({
