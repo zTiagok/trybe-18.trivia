@@ -1,10 +1,11 @@
-import { SAVE_SCORE, SAVE_USER } from '../actions/actions';
+import { DISABLE_BUTTON, SAVE_SCORE, SAVE_USER } from '../actions/actions';
 
 const INITIAL_STATE = {
   name: '',
   assertions: '',
   score: 0,
   gravatarEmail: '',
+  btnDisabled: false,
 };
 
 const player = (state = INITIAL_STATE, action) => {
@@ -20,6 +21,12 @@ const player = (state = INITIAL_STATE, action) => {
     return {
       ...state,
       score: state.score + action.score,
+    };
+
+  case DISABLE_BUTTON:
+    return {
+      ...state,
+      btnDisabled: action.btnDisabled ? !action.btnDisabled : !action.btnDisabled,
     };
 
   default:

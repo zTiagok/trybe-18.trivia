@@ -45,6 +45,10 @@ body {
   background-position-x: center; */
 }
 
+#timer-countdown {
+  font-size: 50px;
+}
+
 /* LOGIN_____________________ */
 #login-page {
   height: 100%;
@@ -98,6 +102,22 @@ body {
   padding: 5px;
   margin-bottom: -10px;
   font-size: 20px;
+  background-color: white;
+  border: none;
+  border-radius: 7px;
+}
+
+#btn-settings {
+  cursor: pointer;
+}
+
+#btn-play {
+  cursor: not-allowed;
+}
+
+#btn-play:not(:disabled) {
+  animation: shake 2s 0.5s;
+  animation-iteration-count: infinite;
 }
 
 ::placeholder {

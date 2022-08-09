@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import propTypes from 'prop-types';
 
+import Timer from '../components/Timer';
 import Header from '../components/Header';
 import Feedback from '../components/Feedback';
-import Timer from '../components/Timer';
 import { getTrivia } from '../API/getInfo';
 import { saveScore as dispatchSaveScore } from '../redux/actions/actions';
 
@@ -21,12 +21,16 @@ class Game extends Component {
     this.renderTrivia();
   }
 
+  componentDidUpdate() {
+    this.button = document.querySelector('.correct');
+  }
+
   renderTrivia = async () => {
     const token = localStorage.getItem('token');
     const trivia = await getTrivia(token);
     const randomizer = 0.5;
     console.log(trivia);
-    const array = [];
+    const arrBtn = [];
 
     trivia.results.forEach((result) => {
       let incorrectElement = result.incorrect_answers.map((answer, index) => (
@@ -54,14 +58,16 @@ class Game extends Component {
 
       incorrectElement.push(correctElement);
       incorrectElement = incorrectElement.sort(() => Math.random() - randomizer);
-      array.push(incorrectElement);
+      arrBtn.push(incorrectElement);
     });
 
+    // alimenta o estado do Componente
     this.setState({ APIcode: trivia.response_code,
       APIresults: trivia.results,
-      APIanswers: array });
+      APIanswers: arrBtn });
   }
 
+  // altera as categorias trazidas pela API
   nextCategoryEvent = () => {
     this.setState((prevState) => ({ currentCategory: prevState.currentCategory + 1,
       nextCategory: false }));
@@ -100,6 +106,7 @@ class Game extends Component {
     const errorNumber = 3;
     const showFeedback = 5;
 
+    // trata o erro de requisição da Api
     if (APIcode === errorNumber) {
       history.push('/');
     }
@@ -115,8 +122,10 @@ class Game extends Component {
       </button>
     );
 
+    // renderiza as categoria/questions/respostas na tela
     const trivia = APIresults.map((results, index) => (
       <div id="trivia-game" key={ results.category + index }>
+        <Timer />
         <h3
           className="trivia-category"
           data-testid="question-category"
@@ -139,7 +148,6 @@ class Game extends Component {
     return (
       <>
         <Header />
-        <Timer />
         <div id="game-page">
           {APIresults
             ? trivia[currentCategory]
@@ -165,7 +173,6 @@ Game.defaultProps = {
 };
 
 const mapStateToProps = () => ({
-
 });
 
 const mapDispatchToProps = (dispatch) => ({

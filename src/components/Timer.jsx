@@ -1,26 +1,19 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
-import { timer } from '../redux/actions/actions';
 
-const initialState = {
-  second: 5,
-};
+import { disableButton as dispatchDisableButton } from '../redux/actions/actions';
 
-class Timer extends React.Component {
-  constructor() {
-    super();
-
-    this.state = initialState;
+class Timer extends Component {
+  state = {
+    second: 30,
   }
 
   componentDidMount() {
-    // variavel global
-    this.decrementador = this.decrementador();
+    this.timer = this.decrementador();
   }
 
   componentWillUnmount() {
-    clearInterval(this.decrementador);
+    clearInterval(this.timer);
   }
 
   decrementador = () => {
@@ -34,25 +27,27 @@ class Timer extends React.Component {
   }
 
   render() {
-    const { changeTime } = this.props;
     const { second } = this.state;
     if (second <= 0) {
-      clearInterval(this.decrementador);
+      clearInterval(this.timer);
+
+      const buttons = document.querySelector('.trivia-answers').childNodes;
+
+      buttons.forEach((button) => {
+        button.disabled = true;
+      });
     }
-    changeTime(second);
     return (
-      <div>{`00:${second}`}</div>
+      <div id="timer-countdown">{`00:${second}`}</div>
     );
   }
 }
 
-const mapDispatchToProps = (dispatch) => ({
-  changeTime: (payload) => (
-    dispatch(timer(payload))),
+const mapStateToProps = () => ({
 });
 
-Timer.propTypes = {
-  changeTime: PropTypes.func.isRequired,
-};
+const mapDispatchToProps = (dispatch) => ({
+  disableButton: () => dispatch(dispatchDisableButton()),
+});
 
-export default connect(null, mapDispatchToProps)(Timer);
+export default connect(mapStateToProps, mapDispatchToProps)(Timer);
