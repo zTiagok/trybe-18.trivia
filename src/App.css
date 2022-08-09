@@ -21,34 +21,103 @@
 body {
   background-color: var(--background);
   color: white;
+  user-select: none;
 }
 
 /* APP _____________________ */
 .App {
   background-color: var(--foreground);
-  border-radius: 10px;
-  box-shadow: 0 0 10px black , 0 0 10px black;
+  border: 5px solid var(--background);
+  border-radius: 20px;
+  box-shadow: 0 0 10px black , 0 0 10px black , 0 0 10px black , 0 0 10px black;
   display: flex;
   flex-direction: column;
-  height: 600px;
+  height: 800px;
   margin: auto;
-  margin-top: 2%;
-  max-height: 500px;
-  max-width: 700px;
+  margin-top: 4%;
+  max-height: 800px;
+  max-width: 1400px;
+
+  /* background-image: url(./images/TRYBE\ TRIVIA.png);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  background-position-x: center; */
+}
+
+/* LOGIN_____________________ */
+#login-page {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#login-form {
+  align-items: center;
+  background-color: var(--details);
+  border: 5px solid var(--background);
+  box-shadow: 0 0 20px black;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  font-size: 30px;
+  height: 50%;
+  justify-content: space-evenly;
+  width: 40%;
+  padding-bottom: 20px;
+}
+
+#login-form input {
+  padding: 10px;
+  font-size: 25px;
+  text-align: center;
+  width: 300px;
+  color: white;
+  text-shadow: 0 0 5px white;
+  border-radius: 7px;
+  margin-top: -20px;
+  border: 3px solid var(--background);
+  background-color: var(--foreground);
+}
+
+#login-form input:focus {
+  background-color: white;
+  border: 3px solid var(--foreground);
+  outline: none;
+  color: black;
+  text-shadow: none;
+}
+
+#email-label {
+  margin-top: -20px;
+}
+
+#login-form button {
+  width: 250px;
+  padding: 5px;
+  margin-bottom: -10px;
+  font-size: 20px;
+}
+
+::placeholder {
+  color: grey;
+  text-shadow: none;
 }
 
 /* HEADER____________________ */
 header {
   align-items: center;
   background-color: var(--details);
-  border-bottom: 2px solid white;
-  border-radius: 10px 10px 5px 5px;
+  border-bottom: 3px solid white;
+  border-radius: 15px 15px 10px 10px;
   box-shadow: 0 4px 10px var(--background);
   display: flex;
   flex-grow: 0;
+  font-size: 30px;
   justify-content: space-around;
-  padding-bottom: 20px;
-  padding-top: 20px;
+  padding-bottom: 40px;
+  padding-top: 40px;
   text-shadow: 0 0 5px white;
   width: 100%;
 }
@@ -63,11 +132,11 @@ header {
 
 #header-icon {
   border-radius: 50px;
-  width: 25px;
+  width: 40px;
 }
 
 #header-username {
-  margin-left: 5px;
+  margin-left: 10px;
 }
 
 /* GAME______________________ */
@@ -76,25 +145,57 @@ header {
   flex-direction: column;
   flex-grow: 1;
   margin: auto;
-  margin-top: 45px;
 }
 
 #trivia-game {
   align-items: center;
   display: flex;
   flex-direction: column;
-  height: 350px;
+  height: 600px;
   justify-content: space-evenly;
   max-width: 600px;
   width: 600px;
 }
 
 .trivia-category {
-  font-size: 40px;
+  font-size: 60px;
+  margin-bottom: -10px;
+  text-align: center;
+  width: 800px;
+
+  /* background: linear-gradient(to right, var(--foreground) 0.1%, rgb(255, 255, 255) 50%, rgb(255, 255, 255) 60%, var(--foreground) 70%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shine 7s 0s infinite linear;
+  animation-fill-mode: forwards;
+  -webkit-text-size-adjust: none;
+  text-decoration: none;
+  white-space: nowrap; */
+}
+
+@keyframes shine {
+  0% {
+    background-position: 0;
+  }
+  50% {
+    background-position: 400px;
+  }
+  100% {
+    background-position: 800px;
+  }
+}
+
+.trivia-line {
+  background-image: linear-gradient(to right, var(--foreground), var(--details), var(--details), var(--details), var(--foreground));
+  border: none;
+  height: 5px;
+  width: 700px;
 }
 
 .trivia-text {
-
+  font-size: 30px;
+  text-align: center;
+  width: 1000px;
 }
 
 .trivia-answers {
@@ -104,17 +205,26 @@ header {
 
 .trivia-answers button {
   border-radius: 5px;
+  font-size: 25px;
   margin: 5px 0;
   padding: 10px;
-  width: 400px;
+  text-shadow: none;
+  transition: padding 1s 0s , font-size 0.5s 0s , text-shadow 0.5s 0.1s , background-color 0.5s 0s , color 0.5s 0s , border 1.5s 0s;
+  width: 700px;
 }
 
 .trivia-answers button:hover {
-  cursor: pointer;
-  background-color: var(--background);
+  background-color: var(--details);
+  border: 3px solid white;
   color: white;
-  text-shadow: 0 0 5px white , 0 0 5px white;
+  cursor: pointer;
+  font-size: 35px;
+  padding: 20px;
+  position: relative;
+  text-shadow: 0 0 10px white , 0 0 10px white;
+  transition: padding 1s 0s , font-size 0.5s 0s , text-shadow 0.5s 0.1s , background-color 0.5s 0s , color 0.5s 0s , border 2s 0s , box-shadow 2s 0s;
 }
+
 
 .correct {
   border: 3px solid var(--background);
@@ -132,10 +242,49 @@ header {
   border: 3px solid red;
 }
 
-.correct-answer-nok {
+/* .correct-answer-nok {
   border: 3px solid var(--green);
 }
 
 .incorrect-answer-nok {
   border: 3px solid red;
+} */
+
+.trivia-next-question {
+  animation: shake 2s 0.5s;
+  animation-iteration-count: infinite;
+  background-color: var(--details);
+  border: 3px solid white;
+  border-radius: 5px;
+  box-shadow: 1px 7px 10px var(--background);
+  color: white;
+  cursor: pointer;
+  font-size: 18px;
+  margin: -10px auto;
+  padding: 5px;
+  text-shadow: 0 0 5px white;
+  width: 200px;
+}
+
+.trivia-next-question:hover {
+  background-color: var(--background);
+}
+
+@keyframes shake {
+
+  10%, 90% {
+    transform: translate3d(-1px, 0, 0);
+  }
+
+  20%, 80% {
+    transform: translate3d(2px, 0, 0);
+  }
+
+  30%, 50%, 70% {
+    transform: translate3d(-4px, 0, 0);
+  }
+
+  40%, 60% {
+    transform: translate3d(4px, 0, 0);
+  }
 }

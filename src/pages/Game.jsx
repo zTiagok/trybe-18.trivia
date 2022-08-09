@@ -85,11 +85,11 @@ class Game extends Component {
     this.setState({ nextCategory: true });
 
     const correctAnswer = document.querySelector('.correct');
-    correctAnswer.classList.add('correct-answer-nok');
+    correctAnswer.classList.add('correct-answer-ok');
 
     const incorrectAnswers = document.querySelectorAll('.incorrect');
     incorrectAnswers.forEach((answer) => {
-      answer.classList.add('incorrect-answer-nok');
+      answer.classList.add('incorrect-answer-ok');
     });
   }
 
@@ -108,6 +108,7 @@ class Game extends Component {
         type="button"
         onClick={ this.nextCategoryEvent }
         data-testid="btn-next"
+        className="trivia-next-question"
       >
         Próxima Questão
       </button>
@@ -121,11 +122,12 @@ class Game extends Component {
         >
           { results.category }
         </h3>
+        <div className="trivia-line" />
         <h4
           className="trivia-text"
           data-testid="question-text"
         >
-          {results.question}
+          { results.question }
         </h4>
         <div className="trivia-answers" data-testid="answer-options">
           {APIanswers[index]}
