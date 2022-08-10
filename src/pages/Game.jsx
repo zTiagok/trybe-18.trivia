@@ -30,7 +30,7 @@ class Game extends Component {
     const trivia = await getTrivia(token);
     const randomizer = 0.5;
     console.log(trivia);
-    const array = [];
+    const arrBtn = [];
 
     trivia.results.forEach((result) => {
       let incorrectElement = result.incorrect_answers.map((answer, index) => (
@@ -58,14 +58,16 @@ class Game extends Component {
 
       incorrectElement.push(correctElement);
       incorrectElement = incorrectElement.sort(() => Math.random() - randomizer);
-      array.push(incorrectElement);
+      arrBtn.push(incorrectElement);
     });
 
+    // alimenta o estado do Componente
     this.setState({ APIcode: trivia.response_code,
       APIresults: trivia.results,
-      APIanswers: array });
+      APIanswers: arrBtn });
   }
 
+  // altera as categorias trazidas pela API
   nextCategoryEvent = () => {
     this.setState((prevState) => ({ currentCategory: prevState.currentCategory + 1,
       nextCategory: false }));
@@ -104,11 +106,10 @@ class Game extends Component {
     const errorNumber = 3;
     const showFeedback = 5;
 
+    // trata o erro de requisição da Api
     if (APIcode === errorNumber) {
       history.push('/');
     }
-
-    // const result = timer.contains('00:0');
 
     const nextCategoryButton = (
       <button
@@ -121,6 +122,7 @@ class Game extends Component {
       </button>
     );
 
+    // renderiza as categoria/questions/respostas na tela
     const trivia = APIresults.map((results, index) => (
       <div id="trivia-game" key={ results.category + index }>
         <Timer />
