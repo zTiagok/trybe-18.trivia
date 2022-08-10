@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import propTypes from 'prop-types';
 
+import Feedback from './Feedback';
 import Timer from '../components/Timer';
 import Header from '../components/Header';
-import Feedback from '../components/Feedback';
 import { getTrivia } from '../API/getInfo';
-import { saveScore as dispatchSaveScore } from '../redux/actions/actions';
+import { calculateScore } from '../redux/actions/actions';
 
 class Game extends Component {
   state = {
@@ -32,6 +32,7 @@ class Game extends Component {
     console.log(trivia);
     const arrBtn = [];
 
+    // lógica pra renderizar as 4 questions da chamada da API
     trivia.results.forEach((result) => {
       let incorrectElement = result.incorrect_answers.map((answer, index) => (
         <button
@@ -50,6 +51,7 @@ class Game extends Component {
           type="button"
           data-testid="correct-answer"
           onClick={ this.correctAnswer }
+          value={ result.difficulty }
           className="correct"
         >
           { result.correct_answer }
@@ -59,6 +61,7 @@ class Game extends Component {
       incorrectElement.push(correctElement);
       incorrectElement = incorrectElement.sort(() => Math.random() - randomizer);
       arrBtn.push(incorrectElement);
+      // arrBtn.push(result.difficulty);
     });
 
     // alimenta o estado do Componente
@@ -74,7 +77,7 @@ class Game extends Component {
   }
 
   correctAnswer = ({ target }) => {
-    const { saveScore } = this.props;
+    const { sendScore } = this.props;
 
     this.setState({ nextCategory: true });
     target.classList.add('correct-answer-ok');
@@ -83,9 +86,8 @@ class Game extends Component {
     incorrectAnswers.forEach((answer) => {
       answer.classList.add('incorrect-answer-ok');
     });
-
-    // AUMENTAR A QUANTIDADE DE SCORE DEPOIS______________________________________________________________________
-    saveScore(1);
+    // Adicionar action que calcular score -> o parametro é a dificuldade da pergunta
+    sendScore(target.value);
   }
 
   incorrectAnswers = () => {
@@ -103,6 +105,8 @@ class Game extends Component {
   render() {
     const { APIcode, APIresults, APIanswers, currentCategory, nextCategory } = this.state;
     const { history } = this.props;
+    // console.log('APIanswers:', APIanswers);
+    // console.log('APIresults:', APIresults);
     const errorNumber = 3;
     const showFeedback = 5;
 
@@ -110,6 +114,10 @@ class Game extends Component {
     if (APIcode === errorNumber) {
       history.push('/');
     }
+
+    // if (currentCategory >= showFeedback) {
+    //   history.push('/feedback');
+    // }
 
     const nextCategoryButton = (
       <button
@@ -157,6 +165,7 @@ class Game extends Component {
 
           {currentCategory >= showFeedback
             && <Feedback />}
+          {/* history.push('/feedback') */}
         </div>
       </>
     );
@@ -165,7 +174,7 @@ class Game extends Component {
 
 Game.propTypes = {
   history: propTypes.shape({ push: propTypes.func }),
-  saveScore: propTypes.func.isRequired,
+  sendScore: propTypes.func.isRequired,
 };
 
 Game.defaultProps = {
@@ -176,7 +185,7 @@ const mapStateToProps = () => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  saveScore: (score) => dispatch(dispatchSaveScore(score)),
+  sendScore: (score) => dispatch(calculateScore(score)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Game);

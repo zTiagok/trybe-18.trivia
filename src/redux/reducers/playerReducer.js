@@ -2,7 +2,7 @@ import { DISABLE_BUTTON, SAVE_SCORE, SAVE_USER } from '../actions/actions';
 
 const INITIAL_STATE = {
   name: '',
-  assertions: '',
+  assertions: 0,
   score: 0,
   gravatarEmail: '',
   btnDisabled: false,
@@ -18,9 +18,11 @@ const player = (state = INITIAL_STATE, action) => {
     };
 
   case SAVE_SCORE:
+    console.log('Reducer score:', action.payload.score);
     return {
       ...state,
-      score: state.score + action.score,
+      score: state.score + action.payload.score,
+      assertions: state.assertions + 1,
     };
 
   case DISABLE_BUTTON:

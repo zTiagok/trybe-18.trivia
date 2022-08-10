@@ -1,7 +1,9 @@
+import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+// import { timer } from '../redux/actions/actions';
 
-import { disableButton as dispatchDisableButton } from '../redux/actions/actions';
+import { disableButton, saveTimer } from '../redux/actions/actions';
 
 class Timer extends Component {
   state = {
@@ -28,9 +30,11 @@ class Timer extends Component {
 
   render() {
     const { second } = this.state;
+    const { sendTimer } = this.props;
+    sendTimer(second);
     if (second <= 0) {
       clearInterval(this.timer);
-
+      // desabilita os buttons quando o timer chega em 0;
       const buttons = document.querySelector('.trivia-answers').childNodes;
 
       buttons.forEach((button) => {
@@ -43,11 +47,16 @@ class Timer extends Component {
   }
 }
 
+Timer.propTypes = {
+  sendTimer: PropTypes.func.isRequired,
+};
+
 const mapStateToProps = () => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  disableButton: () => dispatch(dispatchDisableButton()),
+  disableButton: () => dispatch(disableButton()),
+  sendTimer: (payload) => dispatch(saveTimer(payload)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Timer);

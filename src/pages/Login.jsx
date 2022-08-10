@@ -11,33 +11,48 @@ class Login extends Component {
     emailValue: '',
   }
 
-  handleButton = async ({ target }) => {
+  saveLocalStorage = async () => {
     const { history, saveUser } = this.props;
     const { userValue, emailValue } = this.state;
+    const data = await getToken();
+    localStorage.setItem('token', [data.token]);
+    saveUser(userValue, emailValue);
+    history.push('/play');
+  }
 
-    if (target.id === 'btn-play') {
-      const data = await getToken();
+  handleButton = ({ target }) => {
+    const { history } = this.props;
+    // const { userValue, emailValue } = this.state;
+    const { id } = target;
 
-      localStorage.setItem('token', [data.token]);
+    return (id === 'btn-play' ? this.saveLocalStorage() : history.push('/config'));
 
-      saveUser(userValue, emailValue);
+    // if (target.id === 'btn-play') {
+    //   const data = await getToken();
 
-      history.push('/play');
-    }
+    //   localStorage.setItem('token', [data.token]);
 
-    if (target.id === 'btn-settings') {
-      history.push('/config');
-    }
+    //   saveUser(userValue, emailValue);
+
+    //   history.push('/play');
+    // }
+
+    // if (target.id === 'btn-settings') {
+    //   history.push('/config');
+    // }
   };
 
   handleInput = ({ target }) => {
-    if (target.type === 'text') {
-      this.setState({ userValue: target.value });
-    }
+    const { name, value } = target;
+    // if (target.type === 'text') {
+    //   this.setState({ userValue: target.value });
+    // }
 
-    if (target.type === 'email') {
-      this.setState({ emailValue: target.value });
-    }
+    // if (target.type === 'email') {
+    //   this.setState({ emailValue: target.value });
+    // }
+
+    this.setState({ [name]: value });
   }
 
   render() {
@@ -60,7 +75,7 @@ class Login extends Component {
             type="text"
             value={ userValue }
             onChange={ this.handleInput }
-            name="login-name"
+            name="userValue"
             id="login-name"
             data-testid="input-player-name"
             autoComplete="off"
@@ -75,7 +90,7 @@ class Login extends Component {
             type="email"
             value={ emailValue }
             onChange={ this.handleInput }
-            name="login-email"
+            name="emailValue"
             id="login-email"
             data-testid="input-gravatar-email"
             autoComplete="off"
