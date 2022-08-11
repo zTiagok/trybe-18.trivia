@@ -3,7 +3,7 @@ import { render } from '@testing-library/react';
 import { Router } from 'react-router-dom';
 import { createMemoryHistory } from 'history';
 import { Provider } from 'react-redux';
-import {  legacy_createStore as createStore, applyMiddleware } from 'redux';
+import {  legacy_createStore as createStore, applyMiddleware, combineReducers } from 'redux';
 // import thunk from 'redux-thunk';
 // import reducer from '../../redux/reducers';
 
@@ -12,6 +12,8 @@ import Store from '../../redux/store';
 export const renderWithRouterAndRedux = (component, initialState, route = '/') => {
   const store = Store;
   const history = createMemoryHistory({ initialEntries: [route] });
+  const createMockStore = (initialState) => (
+    createStore(combineReducers({ reducer }), initialState, applyMiddleware(thunk)))
 
   return {
     ...render(

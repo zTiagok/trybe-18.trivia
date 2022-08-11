@@ -1,38 +1,58 @@
 import React, { Component } from 'react';
 import propTypes from 'prop-types';
+import { connect } from 'react-redux';
 
 import { getToken } from '../API/getInfo';
+import { saveUser as dispatchSaveUser } from '../redux/actions/actions';
 
-export default class Login extends Component {
+class Login extends Component {
   state = {
     userValue: '',
     emailValue: '',
   }
 
-  handleButton = async ({ target }) => {
+  saveLocalStorage = async () => {
+    const { history, saveUser } = this.props;
+    const { userValue, emailValue } = this.state;
+    const data = await getToken();
+    localStorage.setItem('token', [data.token]);
+    saveUser(userValue, emailValue);
+    history.push('/play');
+  }
+
+  handleButton = ({ target }) => {
     const { history } = this.props;
+    // const { userValue, emailValue } = this.state;
+    const { id } = target;
 
-    if (target.id === 'btn-play') {
-      const data = await getToken();
+    return (id === 'btn-play' ? this.saveLocalStorage() : history.push('/config'));
 
-      localStorage.setItem('token', [data.token]);
+    // if (target.id === 'btn-play') {
+    //   const data = await getToken();
 
-      history.push('/play');
-    }
+    //   localStorage.setItem('token', [data.token]);
 
-    if (target.id === 'btn-settings') {
-      history.push('/config');
-    }
+    //   saveUser(userValue, emailValue);
+
+    //   history.push('/play');
+    // }
+
+    // if (target.id === 'btn-settings') {
+    //   history.push('/config');
+    // }
   };
 
   handleInput = ({ target }) => {
-    if (target.type === 'text') {
-      this.setState({ userValue: target.value });
-    }
+    const { name, value } = target;
+    // if (target.type === 'text') {
+    //   this.setState({ userValue: target.value });
+    // }
 
-    if (target.type === 'email') {
-      this.setState({ emailValue: target.value });
-    }
+    // if (target.type === 'email') {
+    //   this.setState({ emailValue: target.value });
+    // }
+
+    this.setState({ [name]: value });
   }
 
   render() {
@@ -48,32 +68,35 @@ export default class Login extends Component {
     return (
       <div id="login-page">
         <form id="login-form">
+          <babel htmlFor="login-name" id="user-label">
+            Usuário
+          </babel>
+          <input
+            type="text"
+            value={ userValue }
+            onChange={ this.handleInput }
+            name="userValue"
+            id="login-name"
+            data-testid="input-player-name"
+            autoComplete="off"
+            placeholder="Seu Nome"
+            required
+          />
 
-          <label htmlFor="login-name">
-            Usuário:
-            <input
-              type="text"
-              value={ userValue }
-              onChange={ this.handleInput }
-              name="login-name"
-              id="login-name"
-              data-testid="input-player-name"
-              required
-            />
-          </label>
-
-          <label htmlFor="login-email">
-            Email:
-            <input
-              type="email"
-              value={ emailValue }
-              onChange={ this.handleInput }
-              name="login-email"
-              id="login-email"
-              data-testid="input-gravatar-email"
-              required
-            />
-          </label>
+          <babel htmlFor="login-email" id="email-label">
+            Email
+          </babel>
+          <input
+            type="email"
+            value={ emailValue }
+            onChange={ this.handleInput }
+            name="emailValue"
+            id="login-email"
+            data-testid="input-gravatar-email"
+            autoComplete="off"
+            placeholder="seu@email.com"
+            required
+          />
 
           <button
             type="button"
@@ -102,8 +125,17 @@ export default class Login extends Component {
 
 Login.propTypes = {
   history: propTypes.shape({ push: propTypes.func }),
+  saveUser: propTypes.func.isRequired,
 };
 
 Login.defaultProps = {
   history: propTypes.shape({}),
 };
+
+const mapStateToProps = () => ({});
+
+const mapDispatchToProps = (dispatch) => ({
+  saveUser: (user, email) => dispatch(dispatchSaveUser(user, email)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);
