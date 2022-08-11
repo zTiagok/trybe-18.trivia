@@ -11,6 +11,7 @@ class Timer extends Component {
   }
 
   componentDidMount() {
+    // variavel global
     this.timer = this.decrementador();
   }
 
