@@ -156,7 +156,7 @@ class Game extends Component {
     return (
       <>
         <Header />
-        <div id="game-page">
+        <div id="game-page" data-testid="game-page">
           {APIresults
             ? trivia[currentCategory]
             : 'Carregando...'}
