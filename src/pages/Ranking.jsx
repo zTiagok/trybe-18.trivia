@@ -13,7 +13,7 @@ class Ranking extends Component {
         Ranking
         <button
           type="button"
-          data-testing="btn-go-home"
+          data-testid="btn-go-home"
           onClick={ this.redirect }
         >
           Go-Home

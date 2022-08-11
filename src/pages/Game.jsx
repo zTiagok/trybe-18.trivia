@@ -164,8 +164,7 @@ class Game extends Component {
             && nextCategoryButton}
 
           {currentCategory >= showFeedback
-            && <Feedback />}
-          {/* history.push('/feedback') */}
+            && <Feedback history={ history } />}
         </div>
       </>
     );
