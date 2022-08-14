@@ -3,7 +3,8 @@ import {
   SAVE_GAME,
   SAVE_SCORE,
   SAVE_USER,
-  SAVE_ICON } from '../actions/actions';
+  SAVE_ICON,
+  CLEAR_GAME } from '../actions/actions';
 
 const INITIAL_STATE = {
   name: '',
@@ -26,7 +27,7 @@ const player = (state = INITIAL_STATE, action) => {
     };
 
   case SAVE_SCORE:
-    // console.log('Reducer score:', action.payload.score);
+    console.log('Reducer score:', action.payload);
     return {
       ...state,
       score: state.score + action.payload.score,
@@ -37,8 +38,6 @@ const player = (state = INITIAL_STATE, action) => {
     return {
       ...state,
       saveGame: [...state.saveGame, action.payload],
-      score: 0,
-      assertions: 0,
     };
 
   case DISABLE_BUTTON:
@@ -51,6 +50,18 @@ const player = (state = INITIAL_STATE, action) => {
     return {
       ...state,
       hashcode: action.payload,
+    };
+
+  case CLEAR_GAME:
+    return {
+      ...state,
+      name: '',
+      assertions: 0,
+      score: 0,
+      gravatarEmail: '',
+      hashcode: '',
+      btnDisabled: false,
+      saveGame: [],
     };
 
   default:

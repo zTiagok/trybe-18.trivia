@@ -5,6 +5,7 @@ export const SAVE_TIME = 'SAVE_TIME';
 export const SAVE_SCORE = 'SAVE_SCORE';
 export const SAVE_GAME = 'SAVE_GAME';
 export const SAVE_ICON = 'SAVE_ICON';
+export const CLEAR_GAME = 'CLEAR_GAME';
 export const DISABLE_BUTTON = 'DISABLE_BUTTON';
 export const CALCULATE_SCORE = 'CALCULATE_SCORE';
 
@@ -29,6 +30,10 @@ export const saveIcon = (payload) => ({
   payload,
 });
 
+export const clearGame = () => ({
+  type: CLEAR_GAME,
+});
+
 export const disableButton = () => ({
   type: DISABLE_BUTTON,
   btnDisabled: true,
@@ -42,6 +47,7 @@ export const salveGame = (payload) => ({
 
 export const calculateScore = (payload) => (dispatch, getState) => {
   const { timer } = getState();
+  console.log(payload);
   const pontos = 10;
   if (payload === 'easy') {
     const pontEasy = 1;
