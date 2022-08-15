@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import propTypes from 'prop-types';
 import { connect } from 'react-redux';
-// import { MD5 } from 'crypto-js';
+import md5 from 'crypto-js/md5';
+import { saveIcon } from '../redux/actions/actions';
 
 class Header extends Component {
   state = {
@@ -13,19 +14,18 @@ class Header extends Component {
   }
 
   generateGravatarIcon = () => {
-    // const { email, saveGravatar } = this.props;
-
-    // const hashCode = `https://www.gravatar.com/avatar/${MD5(email).toString()}`;
-    const hashCode = 'https://www.gravatar.com/avatar/c19ad9dbaf91c5533605fbf985177ccc';
+    const { savedIcon, gravatarEmail } = this.props;
+    const hashEmail = md5(gravatarEmail);
+    const hashCode = `https://www.gravatar.com/avatar/${hashEmail.toString()}`;
 
     this.setState({ hashCode });
-    // saveGravatar(hashCode);
+    // salva o iconGravatar no reducer
+    savedIcon(hashCode);
   }
 
   render() {
     const { username, score } = this.props;
     const { hashCode } = this.state;
-
     return (
       <header>
         <div id="header-user">
@@ -57,15 +57,19 @@ class Header extends Component {
 Header.propTypes = {
   username: propTypes.string.isRequired,
   score: propTypes.number.isRequired,
+  gravatarEmail: propTypes.string.isRequired,
+  savedIcon: propTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   username: state.player.name,
   gravatarEmail: state.player.gravatarEmail,
   score: state.player.score,
+  hashCode: state.player.hashcode,
 });
 
-const mapDispatchToProps = () => ({
+const mapDispatchToProps = (dispatch) => ({
+  savedIcon: (icon) => dispatch(saveIcon(icon)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Header);

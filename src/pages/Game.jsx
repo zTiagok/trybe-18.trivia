@@ -61,7 +61,6 @@ class Game extends Component {
       incorrectElement.push(correctElement);
       incorrectElement = incorrectElement.sort(() => Math.random() - randomizer);
       arrBtn.push(incorrectElement);
-      // arrBtn.push(result.difficulty);
     });
 
     // alimenta o estado do Componente
@@ -105,8 +104,6 @@ class Game extends Component {
   render() {
     const { APIcode, APIresults, APIanswers, currentCategory, nextCategory } = this.state;
     const { history } = this.props;
-    // console.log('APIanswers:', APIanswers);
-    // console.log('APIresults:', APIresults);
     const errorNumber = 3;
     const showFeedback = 5;
 
@@ -114,10 +111,6 @@ class Game extends Component {
     if (APIcode === errorNumber) {
       history.push('/');
     }
-
-    // if (currentCategory >= showFeedback) {
-    //   history.push('/feedback');
-    // }
 
     const nextCategoryButton = (
       <button

@@ -11,7 +11,7 @@ class Login extends Component {
     emailValue: '',
   }
 
-  saveLocalStorage = async () => {
+  saveDataLogin = async () => {
     const { history, saveUser } = this.props;
     const { userValue, emailValue } = this.state;
     const data = await getToken();
@@ -22,36 +22,12 @@ class Login extends Component {
 
   handleButton = ({ target }) => {
     const { history } = this.props;
-    // const { userValue, emailValue } = this.state;
     const { id } = target;
-
-    return (id === 'btn-play' ? this.saveLocalStorage() : history.push('/config'));
-
-    // if (target.id === 'btn-play') {
-    //   const data = await getToken();
-
-    //   localStorage.setItem('token', [data.token]);
-
-    //   saveUser(userValue, emailValue);
-
-    //   history.push('/play');
-    // }
-
-    // if (target.id === 'btn-settings') {
-    //   history.push('/config');
-    // }
+    return (id === 'btn-play' ? this.saveDataLogin() : history.push('/config'));
   };
 
   handleInput = ({ target }) => {
     const { name, value } = target;
-    // if (target.type === 'text') {
-    //   this.setState({ userValue: target.value });
-    // }
-
-    // if (target.type === 'email') {
-    //   this.setState({ emailValue: target.value });
-    // }
-
     this.setState({ [name]: value });
   }
 
@@ -132,10 +108,13 @@ Login.defaultProps = {
   history: propTypes.shape({}),
 };
 
-const mapStateToProps = () => ({});
+const mapStateToProps = () => ({
+
+});
 
 const mapDispatchToProps = (dispatch) => ({
-  saveUser: (user, email) => dispatch(dispatchSaveUser(user, email)),
+  saveUser: (user, email) => (
+    dispatch(dispatchSaveUser(user, email))),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login);

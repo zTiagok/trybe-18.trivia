@@ -1,13 +1,32 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { salveGame } from '../redux/actions/actions';
 
 class Feedback extends Component {
+  componentDidMount() {
+    this.salveGame();
+  }
+
   redirect = ({ target }) => {
-    const { history } = this.props;
+    const { history, arrGame } = this.props;
     const { id } = target;
+    // salva o array no localStorage
+    localStorage.setItem('ranking', JSON.stringify(arrGame));
     return (id === 'btn-play-again' ? history.push('/') : history.push('/ranking'));
-    // falta corrigir a lógica no game quando redireciona para o componente Feedback
+  }
+
+  // salva os dados do Game após finalizado a partida
+  salveGame = () => {
+    const { name, score, hashCode, salvedGameUser } = this.props;
+    // salva os dados do Game após finalizado a partida num array
+    const ranking = {
+      name,
+      score,
+      hashCode,
+    };
+    // guarda os dados no array do reducer
+    salvedGameUser(ranking);
   }
 
   render() {
@@ -36,9 +55,9 @@ class Feedback extends Component {
         </button>
         <button
           type="button"
+          id="btn-ranking"
           data-testid="btn-ranking"
           onClick={ this.redirect }
-          id="btn-ranking"
         >
           Ranking
         </button>
@@ -49,15 +68,26 @@ class Feedback extends Component {
 
 Feedback.propTypes = {
   assertions: PropTypes.number.isRequired,
+  score: PropTypes.number.isRequired,
+  name: PropTypes.string.isRequired,
+  hashCode: PropTypes.string.isRequired,
+  salvedGameUser: PropTypes.func.isRequired,
+  arrGame: PropTypes.arrayOf().isRequired,
   history: PropTypes.shape({
     push: PropTypes.func,
   }).isRequired,
-  score: PropTypes.number.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   score: state.player.score,
   assertions: state.player.assertions,
+  arrGame: state.player.saveGame,
+  name: state.player.name,
+  hashCode: state.player.hashcode,
 });
 
-export default connect(mapStateToProps)(Feedback);
+const mapDispatchToProps = (dispatch) => ({
+  salvedGameUser: (payload) => dispatch(salveGame(payload)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Feedback);
