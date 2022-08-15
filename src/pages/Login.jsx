@@ -3,7 +3,8 @@ import propTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { getToken } from '../API/getInfo';
-import { saveUser as dispatchSaveUser } from '../redux/actions/actions';
+import { saveUser as dispatchSaveUser,
+  resetGame as dispatchResetGame } from '../redux/actions/actions';
 
 class Login extends Component {
   state = {
@@ -11,7 +12,7 @@ class Login extends Component {
     emailValue: '',
   }
 
-  saveLocalStorage = async () => {
+  saveDataLogin = async () => {
     const { history, saveUser } = this.props;
     const { userValue, emailValue } = this.state;
     const data = await getToken();
@@ -22,37 +23,16 @@ class Login extends Component {
 
   handleButton = ({ target }) => {
     const { history } = this.props;
-    // const { userValue, emailValue } = this.state;
     const { id } = target;
-
-    return (id === 'btn-play' ? this.saveLocalStorage() : history.push('/config'));
-
-    // if (target.id === 'btn-play') {
-    //   const data = await getToken();
-
-    //   localStorage.setItem('token', [data.token]);
-
-    //   saveUser(userValue, emailValue);
-
-    //   history.push('/play');
-    // }
-
-    // if (target.id === 'btn-settings') {
-    //   history.push('/config');
-    // }
+    return (id === 'btn-play' ? this.saveDataLogin() : history.push('/config'));
   };
 
   handleInput = ({ target }) => {
+    const { resetGame } = this.props;
     const { name, value } = target;
-    // if (target.type === 'text') {
-    //   this.setState({ userValue: target.value });
-    // }
-
-    // if (target.type === 'email') {
-    //   this.setState({ emailValue: target.value });
-    // }
-
     this.setState({ [name]: value });
+
+    resetGame();
   }
 
   render() {
@@ -126,16 +106,22 @@ class Login extends Component {
 Login.propTypes = {
   history: propTypes.shape({ push: propTypes.func }),
   saveUser: propTypes.func.isRequired,
+  resetGame: propTypes.func.isRequired,
 };
 
 Login.defaultProps = {
   history: propTypes.shape({}),
 };
 
-const mapStateToProps = () => ({});
+const mapStateToProps = () => ({
+
+});
 
 const mapDispatchToProps = (dispatch) => ({
-  saveUser: (user, email) => dispatch(dispatchSaveUser(user, email)),
+  saveUser: (user, email) => (
+    dispatch(dispatchSaveUser(user, email))),
+  resetGame: () => (
+    dispatch(dispatchResetGame())),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login);
