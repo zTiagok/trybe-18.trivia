@@ -1,46 +1,302 @@
-body {
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200&display=swap') ;
+
+:root {
+
+  --green: rgb(6, 240, 15);
+
+  --background: rgb(22, 22, 31);
+
+  --foreground: rgb(66, 66, 94);
+
+  --details: rgb(35, 29, 52);
+}
+
+* {
   box-sizing: border-box;
+  font-family: Oswald , sans-serif;
   margin: 0;
   padding: 0;
 }
 
+body {
+  background-color: var(--background);
+  color: white;
+  user-select: none;
+}
+
+/* APP _____________________ */
 .App {
+  background-color: var(--foreground);
+  border: 5px solid var(--background);
+  border-radius: 5px;
+  box-shadow: 0 0 10px black , 0 0 10px black , 0 0 10px black , 0 0 10px black;
+  display: flex;
+  flex-direction: column;
+  height: 800px;
+  margin: auto;
+  margin-top: 4%;
+  max-height: 800px;
+  max-width: 1400px;
+
+  /* background-image: url(./images/TRYBE\ TRIVIA.png);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  background-position-x: center; */
+}
+
+#timer-countdown {
+  font-size: 50px;
+}
+
+/* LOGIN_____________________ */
+#login-page {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#login-form {
+  align-items: center;
+  background-color: var(--details);
+  border: 5px solid var(--background);
+  box-shadow: 0 0 20px black;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  font-size: 30px;
+  height: 50%;
+  justify-content: space-evenly;
+  width: 40%;
+  padding-bottom: 20px;
+}
+
+#login-form input {
+  padding: 10px;
+  font-size: 25px;
   text-align: center;
+  width: 300px;
+  color: white;
+  text-shadow: 0 0 5px white;
+  border-radius: 7px;
+  margin-top: -20px;
+  border: 3px solid var(--background);
+  background-color: var(--foreground);
 }
 
-.App-logo {
-  height: 15vmin;
-  pointer-events: none;
+#login-form input:focus {
+  background-color: white;
+  border: 3px solid var(--foreground);
+  outline: none;
+  color: black;
+  text-shadow: none;
 }
 
-.red-border {
-  border: 1px solid red;
+#email-label {
+  margin-top: -20px;
 }
 
-.green-border {
-  border: 1px solid green;
+#login-form button {
+  width: 250px;
+  padding: 5px;
+  margin-bottom: -10px;
+  font-size: 20px;
+  background-color: white;
+  border: none;
+  border-radius: 7px;
 }
 
-@media ( prefers-reduced-motion : no-preference ) {
+#btn-settings {
+  cursor: pointer;
+}
 
-  .App-logo {
-    animation: shake infinite 0.82s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+#btn-play {
+  cursor: not-allowed;
+}
+
+#btn-play:not(:disabled) {
+  animation: shake 2s 0.5s;
+  animation-iteration-count: infinite;
+  cursor: pointer;
+}
+
+::placeholder {
+  color: grey;
+  text-shadow: none;
+}
+
+/* HEADER____________________ */
+header {
+  align-items: center;
+  background-color: var(--details);
+  border-bottom: 3px solid white;
+  border-radius: 0 0 5px 5px;
+  box-shadow: 0 4px 10px var(--background);
+  display: flex;
+  flex-grow: 0;
+  font-size: 30px;
+  justify-content: space-around;
+  padding-bottom: 40px;
+  padding-top: 40px;
+  text-shadow: 0 0 5px white;
+  width: 100%;
+}
+
+#header-user {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: left;
+  width: 300px;
+}
+
+#header-icon {
+  border-radius: 50px;
+  width: 40px;
+}
+
+#header-username {
+  margin-left: 10px;
+}
+
+#header-score {
+  display: flex;
+}
+
+#header-score-value {
+  margin-left: 8px;
+}
+
+/* GAME______________________ */
+#game-page {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  margin: auto;
+}
+
+#trivia-game {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  height: 600px;
+  justify-content: space-evenly;
+  max-width: 600px;
+  width: 600px;
+}
+
+.trivia-category {
+  font-size: 60px;
+  margin-bottom: -10px;
+  text-align: center;
+  width: 800px;
+
+  /* background: linear-gradient(to right, var(--foreground) 0.1%, rgb(255, 255, 255) 50%, rgb(255, 255, 255) 60%, var(--foreground) 70%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shine 7s 0s infinite linear;
+  animation-fill-mode: forwards;
+  -webkit-text-size-adjust: none;
+  text-decoration: none;
+  white-space: nowrap; */
+}
+
+@keyframes shine {
+  0% {
+    background-position: 0;
+  }
+  50% {
+    background-position: 400px;
+  }
+  100% {
+    background-position: 800px;
   }
 }
 
-.App-header {
-  align-items: center;
-  background-color: #282c34;
-  color: white;
-  display: flex;
-  flex-direction: column;
-  font-size: calc(10px + 2vmin);
-  justify-content: center;
-  min-height: 100vh;
+.trivia-line {
+  background-image: linear-gradient(to right, var(--foreground), var(--details), var(--details), var(--details), var(--foreground));
+  border: none;
+  height: 5px;
+  width: 700px;
 }
 
-.App-link {
-  color: #61dafb;
+.trivia-text {
+  font-size: 30px;
+  text-align: center;
+  width: 1000px;
+}
+
+.trivia-answers {
+  display: flex;
+  flex-direction: column;
+}
+
+.trivia-answers button {
+  border-radius: 5px;
+  font-size: 25px;
+  margin: 5px 0;
+  padding: 10px;
+  text-shadow: none;
+  transition: padding 1s 0s , font-size 0.5s 0s , text-shadow 0.5s 0.1s , background-color 0.5s 0s , color 0.5s 0s , border 1.5s 0s;
+  width: 700px;
+}
+
+.trivia-answers button:hover {
+  background-color: var(--details);
+  border: 3px solid white;
+  color: white;
+  cursor: pointer;
+  font-size: 35px;
+  padding: 20px;
+  position: relative;
+  text-shadow: 0 0 10px white , 0 0 10px white;
+  transition: padding 1s 0s , font-size 0.5s 0s , text-shadow 0.5s 0.1s , background-color 0.5s 0s , color 0.5s 0s , border 2s 0s , box-shadow 2s 0s;
+}
+
+
+.correct {
+  border: 3px solid var(--background);
+}
+
+.incorrect {
+  border: 3px solid var(--background);
+}
+
+.correct-answer-ok {
+  border: 3px solid var(--green);
+}
+
+.incorrect-answer-ok {
+  border: 3px solid red;
+}
+
+/* .correct-answer-nok {
+  border: 3px solid var(--green);
+}
+
+.incorrect-answer-nok {
+  border: 3px solid red;
+} */
+
+.trivia-next-question {
+  animation: shake 2s 0.5s;
+  animation-iteration-count: infinite;
+  background-color: var(--details);
+  border: 3px solid white;
+  border-radius: 5px;
+  box-shadow: 1px 7px 10px var(--background);
+  color: white;
+  cursor: pointer;
+  font-size: 18px;
+  margin: -10px auto;
+  padding: 5px;
+  text-shadow: 0 0 5px white;
+  width: 200px;
+}
+
+.trivia-next-question:hover {
+  background-color: var(--background);
 }
 
 @keyframes shake {
@@ -60,16 +316,4 @@ body {
   40%, 60% {
     transform: translate3d(4px, 0, 0);
   }
-}
-
-.correct {
-  background-color: green;
-}
-
-.correct-answer-ok {
-  border: 3px solid rgb(6, 240, 15);
-}
-
-.incorrect-answer-ok {
-  border: 3px solid red;
 }

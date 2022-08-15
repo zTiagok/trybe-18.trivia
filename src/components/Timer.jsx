@@ -43,7 +43,7 @@ class Timer extends Component {
       });
     }
     return (
-      <div id="timer-countdown">{`00:${second}`}</div>
+      <div id="timer-countdown">{ second }</div>
     );
   }
 }

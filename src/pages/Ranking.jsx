@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import GoHome from '../components/GoHome';
 
 class Ranking extends Component {
   redirect = () => {
@@ -10,6 +11,7 @@ class Ranking extends Component {
   render() {
     const dataRanking = JSON.parse(localStorage.getItem('ranking'));
     const rankingOrder = dataRanking.sort((a, b) => b.score - a.score);
+    const { history } = this.props;
     const getDataGame = rankingOrder.map(({ name, score, hashCode }, index) => (
       <div key={ index }>
         <p data-testid={ `player-name-${index}` }>{ name }</p>
@@ -21,12 +23,10 @@ class Ranking extends Component {
     return (
       <div data-testid="ranking-title">
         <h2>Ranking</h2>
+        <GoHome history={ history } />
         <div>
           {getDataGame}
         </div>
-        <button type="button" data-testid="btn-go-home" onClick={ this.redirect }>
-          Go-Home
-        </button>
       </div>
     );
   }

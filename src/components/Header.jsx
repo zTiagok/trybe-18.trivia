@@ -42,13 +42,15 @@ class Header extends Component {
             { username || 'Usuário'}
           </p>
         </div>
-        <p id="header-score">Pontuação:</p>
-        <p
-          id="header-score"
-          data-testid="header-score"
-        >
-          { score }
-        </p>
+        <div id="header-score">
+          <p id="header-score-text">Pontuação:</p>
+          <p
+            id="header-score-value"
+            data-testid="header-score"
+          >
+            { score }
+          </p>
+        </div>
       </header>
     );
   }

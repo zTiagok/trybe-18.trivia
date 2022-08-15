@@ -103,7 +103,7 @@ class Game extends Component {
 
   render() {
     const { APIcode, APIresults, APIanswers, currentCategory, nextCategory } = this.state;
-    const { history } = this.props;
+    const { history, timer } = this.props;
     const errorNumber = 3;
     const showFeedback = 5;
 
@@ -156,6 +156,8 @@ class Game extends Component {
           { nextCategory
             && nextCategoryButton}
 
+          { timer <= 0 && nextCategoryButton }
+
           {currentCategory >= showFeedback
             && <Feedback history={ history } />}
           {/* history.push('/feedback') */}
@@ -168,13 +170,15 @@ class Game extends Component {
 Game.propTypes = {
   history: propTypes.shape({ push: propTypes.func }),
   sendScore: propTypes.func.isRequired,
+  timer: propTypes.func.isRequired,
 };
 
 Game.defaultProps = {
   history: propTypes.shape({}),
 };
 
-const mapStateToProps = () => ({
+const mapStateToProps = (state) => ({
+  timer: state.timer.time,
 });
 
 const mapDispatchToProps = (dispatch) => ({
