@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { salveGame } from '../redux/actions/actions';
+import { saveGame } from '../redux/actions/actions';
 
 class Feedback extends Component {
   componentDidMount() {
-    this.salveGame();
+    this.saveGame();
   }
 
   redirect = ({ target }) => {
@@ -17,8 +17,8 @@ class Feedback extends Component {
   }
 
   // salva os dados do Game após finalizado a partida
-  salveGame = () => {
-    const { name, score, hashCode, salvedGameUser } = this.props;
+  saveGame = () => {
+    const { name, score, hashCode, savedGameUser } = this.props;
     // salva os dados do Game após finalizado a partida num array
     const ranking = {
       name,
@@ -26,7 +26,7 @@ class Feedback extends Component {
       hashCode,
     };
     // guarda os dados no array do reducer
-    salvedGameUser(ranking);
+    savedGameUser(ranking);
   }
 
   render() {
@@ -71,7 +71,7 @@ Feedback.propTypes = {
   score: PropTypes.number.isRequired,
   name: PropTypes.string.isRequired,
   hashCode: PropTypes.string.isRequired,
-  salvedGameUser: PropTypes.func.isRequired,
+  savedGameUser: PropTypes.func.isRequired,
   arrGame: PropTypes.arrayOf().isRequired,
   history: PropTypes.shape({
     push: PropTypes.func,
@@ -87,7 +87,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  salvedGameUser: (payload) => dispatch(salveGame(payload)),
+  savedGameUser: (payload) => dispatch(saveGame(payload)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Feedback);

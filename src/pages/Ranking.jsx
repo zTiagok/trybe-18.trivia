@@ -1,14 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { clearGame } from '../redux/actions/actions';
 
 class Ranking extends Component {
   redirect = () => {
-    const { history, clear } = this.props;
+    const { history } = this.props;
     history.push('/');
-    // action que limpa o historico do jogador
-    clear();
   };
 
   render() {
@@ -40,11 +36,7 @@ Ranking.propTypes = {
   history: PropTypes.shape({
     push: PropTypes.func,
   }).isRequired,
-  clear: PropTypes.func.isRequired,
+  // dataGame: PropTypes.arrayOf().isRequired,
 };
 
-const mapDispatchToProps = (dispatch) => ({
-  clear: () => dispatch(clearGame()),
-});
-
-export default connect(null, mapDispatchToProps)(Ranking);
+export default Ranking;

@@ -4,7 +4,8 @@ import {
   SAVE_SCORE,
   SAVE_USER,
   SAVE_ICON,
-  CLEAR_GAME } from '../actions/actions';
+  RESET_GAME,
+} from '../actions/actions';
 
 const INITIAL_STATE = {
   name: '',
@@ -27,7 +28,7 @@ const player = (state = INITIAL_STATE, action) => {
     };
 
   case SAVE_SCORE:
-    console.log('Reducer score:', action.payload);
+    // console.log('Reducer score:', action.payload.score);
     return {
       ...state,
       score: state.score + action.payload.score,
@@ -52,16 +53,11 @@ const player = (state = INITIAL_STATE, action) => {
       hashcode: action.payload,
     };
 
-  case CLEAR_GAME:
+  case RESET_GAME:
     return {
       ...state,
-      name: '',
       assertions: 0,
       score: 0,
-      gravatarEmail: '',
-      hashcode: '',
-      btnDisabled: false,
-      saveGame: [],
     };
 
   default:

@@ -3,7 +3,8 @@ import propTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { getToken } from '../API/getInfo';
-import { saveUser as dispatchSaveUser } from '../redux/actions/actions';
+import { saveUser as dispatchSaveUser,
+  resetGame as dispatchResetGame } from '../redux/actions/actions';
 
 class Login extends Component {
   state = {
@@ -27,8 +28,11 @@ class Login extends Component {
   };
 
   handleInput = ({ target }) => {
+    const { resetGame } = this.props;
     const { name, value } = target;
     this.setState({ [name]: value });
+
+    resetGame();
   }
 
   render() {
@@ -102,6 +106,7 @@ class Login extends Component {
 Login.propTypes = {
   history: propTypes.shape({ push: propTypes.func }),
   saveUser: propTypes.func.isRequired,
+  resetGame: propTypes.func.isRequired,
 };
 
 Login.defaultProps = {
@@ -115,6 +120,8 @@ const mapStateToProps = () => ({
 const mapDispatchToProps = (dispatch) => ({
   saveUser: (user, email) => (
     dispatch(dispatchSaveUser(user, email))),
+  resetGame: () => (
+    dispatch(dispatchResetGame())),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login);
