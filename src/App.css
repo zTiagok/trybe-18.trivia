@@ -254,7 +254,6 @@ header {
   transition: padding 1s 0s , font-size 0.5s 0s , text-shadow 0.5s 0.1s , background-color 0.5s 0s , color 0.5s 0s , border 2s 0s , box-shadow 2s 0s;
 }
 
-
 .correct {
   border: 3px solid var(--background);
 }
@@ -270,14 +269,6 @@ header {
 .incorrect-answer-ok {
   border: 3px solid red;
 }
-
-/* .correct-answer-nok {
-  border: 3px solid var(--green);
-}
-
-.incorrect-answer-nok {
-  border: 3px solid red;
-} */
 
 .trivia-next-question {
   animation: shake 2s 0.5s;
@@ -316,4 +307,57 @@ header {
   40%, 60% {
     transform: translate3d(4px, 0, 0);
   }
+}
+
+/* FEEDBACK _________________ */
+
+#feedback-page {
+  position: relative;
+  top: 150px;
+  height: 40%;
+  width: 500px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  font-size: 24px;
+}
+
+#feedback-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 50px;
+}
+
+#feedback-container-score {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+#feedback-score-text {
+  font-weight: 800;
+}
+
+#feedback-container-assertions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+#feedback-assertions-text {
+  font-weight: 800;
+}
+
+#feedback-page button {
+  padding: 5px;
+  width: 50%;
+  margin-bottom: 5px;
+  border-radius: 5px;
+  border: 0px;
+  font-size: 16px;
 }

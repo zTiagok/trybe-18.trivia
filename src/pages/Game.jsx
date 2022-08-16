@@ -149,7 +149,7 @@ class Game extends Component {
     return (
       <>
         <Header />
-        <div id="game-page" data-testid="game-page">
+        <main id="game-page" data-testid="game-page">
           {APIresults
             ? trivia[currentCategory]
             : 'Carregando...'}
@@ -161,7 +161,7 @@ class Game extends Component {
           {currentCategory >= showFeedback
             && <Feedback history={ history } />}
           {/* history.push('/feedback') */}
-        </div>
+        </main>
       </>
     );
   }

@@ -33,18 +33,25 @@ class Feedback extends Component {
     const { score, assertions } = this.props;
     const scoreMin = 3;
     return (
-      <div id="game-page">
+      <div id="feedback-page">
         <div
-          id="feedback"
+          id="feedback-text"
           data-testid="feedback-text"
         >
           Feedback
           { assertions < scoreMin ? <h2>Could be better...</h2> : <h2>Well Done!</h2>}
         </div>
-        <div>Pontuação Total:</div>
-        <div data-testid="feedback-total-score">{ score }</div>
-        <div>Respostas Corretas:</div>
-        <p data-testid="feedback-total-question">{ assertions }</p>
+
+        <div id="feedback-container-score">
+          <div id="feedback-score-text">Pontuação Total</div>
+          <div id="feedback-score-value">{ score }</div>
+        </div>
+
+        <div id="feedback-container-assertions">
+          <div id="feedback-assertions-text">Respostas Corretas</div>
+          <p id="feedback-assertions-value">{ assertions }</p>
+        </div>
+
         <button
           type="button"
           data-testid="btn-play-again"
