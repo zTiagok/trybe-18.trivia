@@ -31,7 +31,7 @@ class Timer extends Component {
 
   render() {
     const { second } = this.state;
-    const { sendTimer } = this.props;
+    const { sendTimer, propClass } = this.props;
     sendTimer(second);
     if (second <= 0) {
       clearInterval(this.timer);
@@ -43,13 +43,14 @@ class Timer extends Component {
       });
     }
     return (
-      <div id="timer-countdown">{ second }</div>
+      <div id="timer-countdown" className={ propClass }>{ second }</div>
     );
   }
 }
 
 Timer.propTypes = {
   sendTimer: PropTypes.func.isRequired,
+  propClass: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = () => ({

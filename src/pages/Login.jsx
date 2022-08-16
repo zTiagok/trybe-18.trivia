@@ -49,7 +49,7 @@ class Login extends Component {
       <div id="login-page">
         <form id="login-form">
           <babel htmlFor="login-name" id="user-label">
-            Usuário
+            User
           </babel>
           <input
             type="text"
@@ -59,7 +59,7 @@ class Login extends Component {
             id="login-name"
             data-testid="input-player-name"
             autoComplete="off"
-            placeholder="Seu Nome"
+            placeholder="Your Name"
             required
           />
 
@@ -74,7 +74,7 @@ class Login extends Component {
             id="login-email"
             data-testid="input-gravatar-email"
             autoComplete="off"
-            placeholder="seu@email.com"
+            placeholder="your@email.com"
             required
           />
 

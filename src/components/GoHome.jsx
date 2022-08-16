@@ -13,6 +13,7 @@ export default class GoHome extends Component {
         type="button"
         data-testid="btn-go-home"
         onClick={ this.handleButton }
+        id="home-button"
       >
         Home
       </button>

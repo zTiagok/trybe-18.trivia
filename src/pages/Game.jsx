@@ -119,14 +119,18 @@ class Game extends Component {
         data-testid="btn-next"
         className="trivia-next-question"
       >
-        Próxima Questão
+        Next Question
       </button>
     );
 
     // renderiza as categoria/questions/respostas na tela
     const trivia = APIresults.map((results, index) => (
       <div id="trivia-game" key={ results.category + index }>
-        <Timer />
+
+        { !nextCategory
+          ? <Timer propClass="show-timer" />
+          : <Timer propClass="hide-timer" /> }
+
         <h3
           className="trivia-category"
           data-testid="question-category"
@@ -138,7 +142,7 @@ class Game extends Component {
           className="trivia-text"
           data-testid="question-text"
         >
-          { results.question }
+          { results.question.replace(/&quot;/g, '"') }
         </h4>
         <div className="trivia-answers" data-testid="answer-options">
           {APIanswers[index]}

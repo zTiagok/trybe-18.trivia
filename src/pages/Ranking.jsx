@@ -13,21 +13,22 @@ class Ranking extends Component {
     const rankingOrder = dataRanking.sort((a, b) => b.score - a.score);
     const { history } = this.props;
     const getDataGame = rankingOrder.map(({ name, score, hashCode }, index) => (
-      <div key={ index }>
-        <p data-testid={ `player-name-${index}` }>{ name }</p>
-        <img src={ hashCode } alt="icon" />
-        <p data-testid={ `player-score-${index} ` }>{ score }</p>
+      <div key={ index } className="ranking-item">
+        <img src={ hashCode } alt="icon" className="ranking-images" />
+        <p data-testid={ `player-name-${index}` } className="ranking-names">{ name }</p>
+        <p data-testid={ `player-score-${index}` } className="ranking-scores">{ score }</p>
       </div>
     ));
 
     return (
-      <div data-testid="ranking-title">
-        <h2>Ranking</h2>
+      <main id="ranking-page">
         <GoHome history={ history } />
-        <div>
+        <h2 id="ranking-title">Ranking</h2>
+        <hr id="ranking-line" />
+        <div id="ranking-list">
           {getDataGame}
         </div>
-      </div>
+      </main>
     );
   }
 }

@@ -43,12 +43,12 @@ class Feedback extends Component {
         </div>
 
         <div id="feedback-container-score">
-          <div id="feedback-score-text">Pontuação Total</div>
+          <div id="feedback-score-text">Total Score</div>
           <div id="feedback-score-value">{ score }</div>
         </div>
 
         <div id="feedback-container-assertions">
-          <div id="feedback-assertions-text">Respostas Corretas</div>
+          <div id="feedback-assertions-text">Correct Answers</div>
           <p id="feedback-assertions-value">{ assertions }</p>
         </div>
 

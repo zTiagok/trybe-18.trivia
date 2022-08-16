@@ -227,6 +227,15 @@ header {
   width: 1000px;
 }
 
+.show-timer {
+  color: white;
+}
+
+.hide-timer {
+  color: transparent;
+  transition: color 0.3s 0s;
+}
+
 .trivia-answers {
   display: flex;
   flex-direction: column;
@@ -280,7 +289,7 @@ header {
   color: white;
   cursor: pointer;
   font-size: 18px;
-  margin: -10px auto;
+  margin: 0 auto;
   padding: 5px;
   text-shadow: 0 0 5px white;
   width: 200px;
@@ -328,14 +337,18 @@ header {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-bottom: 50px;
+  margin-bottom: 30px;
 }
 
 #feedback-container-score {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom: 20px;
+  margin-bottom: 5px;
+  background-color: var(--details);
+  width: 200px;
+  padding: 5px 20px;
+  border-radius: 10px;
 }
 
 #feedback-score-text {
@@ -347,6 +360,10 @@ header {
   flex-direction: column;
   align-items: center;
   margin-bottom: 20px;
+  background-color: var(--details);
+  width: 200px;
+  padding: 5px 20px;
+  border-radius: 10px;
 }
 
 #feedback-assertions-text {
@@ -359,5 +376,72 @@ header {
   margin-bottom: 5px;
   border-radius: 5px;
   border: 0px;
-  font-size: 16px;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+/* RANKING ______________ */
+
+#ranking-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#home-button {
+  margin-top: 20px;
+  padding: 5px;
+  width: 125px;
+  font-size: 20px;
+  color: white;
+  background-color: var(--details);
+  border: 3px solid var(--background);
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+#ranking-title {
+  font-size: 40px;
+  font-weight: 800;
+  text-shadow: 0 0 10px white;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+#ranking-line {
+  background-image: linear-gradient(to right, var(--foreground), var(--details), var(--details), var(--details), var(--foreground));
+  border: none;
+  height: 5px;
+  width: 700px;
+  margin-bottom: 30px;
+}
+
+#ranking-list {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.ranking-item {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.ranking-names {
+  margin-top: 7px;
+  text-align: center;
+  font-size: 20px;
+  font-weight: 800;
+}
+
+.ranking-images {
+  border-radius: 50px;
+}
+
+.ranking-scores {
+  text-align: center;
+  margin-bottom: 30px;
 }

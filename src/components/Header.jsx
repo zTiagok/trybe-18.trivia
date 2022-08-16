@@ -39,11 +39,11 @@ class Header extends Component {
             id="header-username"
             data-testid="header-player-name"
           >
-            { username || 'Usuário'}
+            { username || 'User'}
           </p>
         </div>
         <div id="header-score">
-          <p id="header-score-text">Pontuação:</p>
+          <p id="header-score-text">Score:</p>
           <p
             id="header-score-value"
             data-testid="header-score"
